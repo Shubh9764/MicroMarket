@@ -7,21 +7,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="orderService" />
+        <module name="DiscoveryServer" />
+        <module name="APIGateway" />
         <module name="productService" />
         <module name="InventoryService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="InventoryService" target="17" />
-      <module name="orderService" target="17" />
-      <module name="productService" target="17" />
+      <module name="APIGatwWay" target="19" />
+      <module name="DiscoveryServer.main" target="17" />
+      <module name="DiscoveryServer.test" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="APIGatwWay" options="-parameters" />
+      <module name="DiscoveryServer" options="-parameters" />
       <module name="InventoryService" options="-parameters" />
-      <module name="orderService" options="-parameters" />
+      <module name="orderService" options="" />
       <module name="productService" options="-parameters" />
     </option>
   </component>

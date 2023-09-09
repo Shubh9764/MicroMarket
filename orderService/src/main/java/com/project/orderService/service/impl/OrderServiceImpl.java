@@ -9,8 +9,11 @@ import com.project.orderService.repositories.OrderRepo;
 import com.project.orderService.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +25,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepo orderRepo;
     @Autowired
-    WebClient webClient;
+    WebClient.Builder webClientBuilder;
+
+//    @Autowired
+//    RestTemplate restTemplate;
 
 
     @Override
@@ -35,7 +41,8 @@ public class OrderServiceImpl implements OrderService {
        // call inventory service and place order if item is in stock
         List<String> skuCodes = order.getOrderLineItems().stream().map(OrderLineItems::getSkuCode).toList();
 
-        InventoryResponse[] responseList = webClient.get().uri("http://localhost:8082/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
+        InventoryResponse[] responseList = webClientBuilder.build().get().uri("http://inventory-service/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build()).retrieve().bodyToMono(InventoryResponse[].class).block();
+//        InventoryResponse[] responseList = restTemplate.getForObject("http://INVENTORY_SERVICE/api/inventory?skuCode="+skuCodes.get(0),InventoryResponse[].class);
 
        boolean isAvailable = Arrays.stream(responseList).allMatch(InventoryResponse::isInStock);
        if(isAvailable)
