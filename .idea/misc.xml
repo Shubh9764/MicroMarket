@@ -7,10 +7,11 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/orderService/pom.xml" />
         <option value="$PROJECT_DIR$/productService/pom.xml" />
         <option value="$PROJECT_DIR$/InventoryService/pom.xml" />
         <option value="$PROJECT_DIR$/DiscoveryServer/pom.xml" />
+        <option value="$PROJECT_DIR$/orderService 2/pom.xml" />
+        <option value="$PROJECT_DIR$/orderService/pom.xml" />
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
       </list>
     </option>
@@ -20,5 +21,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/order-Service/src/main/java/com/project/orderService" />
+  </component>
 </project>
