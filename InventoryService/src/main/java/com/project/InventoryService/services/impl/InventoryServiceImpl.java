@@ -25,7 +25,15 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<Inventory> areInStock(List<String> skuCode) {
+        try {
+            System.out.println("wait Started");
+            Thread.sleep(10000);
+            System.out.println("wait ended");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         List<Inventory> list = inventoryRepo.findBySkuCodeIn(skuCode);
+
         list.stream().forEach(inventory -> {
             if(inventory.getQuantity() > 0)
                 inventory.setQuantity(inventory.getQuantity() - 1);
@@ -37,6 +45,11 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<Inventory> getAll() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return inventoryRepo.findAll();
     }
 }
