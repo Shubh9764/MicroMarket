@@ -3,6 +3,7 @@ package com.project.orderService.service.impl;
 import com.project.orderService.dto.InventoryResponse;
 import com.project.orderService.dto.OrderLineItemsDto;
 import com.project.orderService.dto.OrderRequest;
+import com.project.orderService.events.OrderPlacedEvents;
 import com.project.orderService.model.Order;
 import com.project.orderService.model.OrderLineItems;
 import com.project.orderService.repositories.OrderRepo;
@@ -10,6 +11,7 @@ import com.project.orderService.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -26,6 +28,8 @@ public class OrderServiceImpl implements OrderService {
     OrderRepo orderRepo;
     @Autowired
     WebClient.Builder webClientBuilder;
+    @Autowired
+    private KafkaTemplate<String,OrderPlacedEvents> kafkaTemplate;
 
 //    @Autowired
 //    RestTemplate restTemplate;
@@ -45,8 +49,10 @@ public class OrderServiceImpl implements OrderService {
 //        InventoryResponse[] responseList = restTemplate.getForObject("http://INVENTORY_SERVICE/api/inventory?skuCode="+skuCodes.get(0),InventoryResponse[].class);
 
        boolean isAvailable = Arrays.stream(responseList).allMatch(InventoryResponse::isInStock);
-       if(isAvailable)
+       if(isAvailable){
+           kafkaTemplate.send("topic_order",new OrderPlacedEvents(order.getOrderNo()));
            orderRepo.save(order);
+       }
        else
            throw new RuntimeException("Product out of Stock");
 

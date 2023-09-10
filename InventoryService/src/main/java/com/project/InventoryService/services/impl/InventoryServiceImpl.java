@@ -25,13 +25,13 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<Inventory> areInStock(List<String> skuCode) {
-        try {
-            System.out.println("wait Started");
-            Thread.sleep(10000);
-            System.out.println("wait ended");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            System.out.println("wait Started");
+//            Thread.sleep(10000);
+//            System.out.println("wait ended");
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         List<Inventory> list = inventoryRepo.findBySkuCodeIn(skuCode);
 
         list.stream().forEach(inventory -> {

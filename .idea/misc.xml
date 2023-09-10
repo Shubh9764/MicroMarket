@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/orderService 2/pom.xml" />
         <option value="$PROJECT_DIR$/orderService/pom.xml" />
         <option value="$PROJECT_DIR$/APIGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/NotificationService/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
