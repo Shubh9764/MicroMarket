@@ -41,6 +41,7 @@ spring:
     sampler:
       probability: 1.0
 
+
 logging:
   level:
     root: info
@@ -49,4 +50,8 @@ logging:
 
 server:
   port: 8084
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include : prometheus
